@@ -55,38 +55,56 @@ public class FirstPart {
 
     // region SECOND TASK EXPRESSION
 
+    // TODO: сделать метод, который запрашивает у пользователя в консоли данные для проверки точки
+
     // константы для вершин треугольника
     private static final double TRIANGLE_VERTEX_A_X = 0;
     private static final double TRIANGLE_VERTEX_A_Y = 5;
     private static final double TRIANGLE_VERTEX_B_X = 0;
     private static final double TRIANGLE_VERTEX_B_Y = -5;
-    private static final double TRIANGLE_VERTEX_C_X = 5;
+    private static final double TRIANGLE_VERTEX_C_X = 10;
     private static final double TRIANGLE_VERTEX_C_Y = 0;
-    private static final double TRIANGLE_AREA = 25;
 
     // константы для центра окружности и радиуса
     private static final double CIRCLE_CENTER_X = 5;
     private static final double CIRCLE_CENTER_Y = 0;
     private static final double CIRCLE_RADIUS = 5;
 
-    public static boolean secondTaskExpression(int a, int b){
-        return (isPointInCircleleArea(a, b) && isPointInTriangleArea(a, b));
+    // константа погрешности вычислений
+    private static final double EPSILON = 1e-8;
+
+    public static boolean secondTaskExpression(double a, double b){
+        return (isPointInCircleArea(a, b) || isPointInTriangleArea(a, b));
     }
 
-    private static boolean isPointInCircleleArea(int x, int y){
+    private static boolean isPointInCircleArea(double x, double y){
         // Тут все просто, если расстояние от центра окружности до точки меньше, чем радиус, то точка внутри круга
         // Вычисляем по формуле sqrt(x^2 + y^2), уберем корень, чтобы не нагружать компьютер, просто сравним с радиусом в квадрате
-        double distanceBeetwen = (x - CIRCLE_CENTER_X) * (x - CIRCLE_CENTER_X) + y * y;
+        double distanceBeetwen = (x - CIRCLE_CENTER_X) * (x - CIRCLE_CENTER_X) + (y - CIRCLE_CENTER_Y) * (y - CIRCLE_CENTER_Y);
         return distanceBeetwen <= CIRCLE_RADIUS * CIRCLE_RADIUS;
     }
 
-    private static boolean isPointInTriangleArea(int x, int y){
+    private static boolean isPointInTriangleArea(double x, double y){
         // Решим методом площадей. Если площадь треугольника равно площади трех треугольников, образующихся от точки и двух других точек
-        // то точка находится внутри треугольникa
-
-        // TODO: сделать метод
-        return false;
+        // значит точка находится внутри треугольникa
+        double triangleArea = getTriangleArea(TRIANGLE_VERTEX_A_X, TRIANGLE_VERTEX_A_Y, TRIANGLE_VERTEX_B_X, TRIANGLE_VERTEX_B_Y, TRIANGLE_VERTEX_C_X, TRIANGLE_VERTEX_C_Y);
+        double firstArea = getTriangleArea(x, y, TRIANGLE_VERTEX_B_X, TRIANGLE_VERTEX_B_Y, TRIANGLE_VERTEX_C_X, TRIANGLE_VERTEX_C_Y);
+        double secondArea = getTriangleArea(TRIANGLE_VERTEX_A_X, TRIANGLE_VERTEX_A_Y, x, y, TRIANGLE_VERTEX_C_X, TRIANGLE_VERTEX_C_Y);
+        double thirdArea = getTriangleArea(TRIANGLE_VERTEX_A_X, TRIANGLE_VERTEX_A_Y, TRIANGLE_VERTEX_B_X, TRIANGLE_VERTEX_B_Y, x, y);
+        double totalArea = firstArea + secondArea + thirdArea;
+        return totalArea - triangleArea < EPSILON;
+        // Сравниваем разность двух площадей и EPSILON для избежания ошибок, связанных с работой вещественных чисел IEEE 754
     }
+
+    private static double getTriangleArea(double x1, double y1, double x2, double y2, double x3, double y3){
+        return Math.abs((x1 - x3) * (y2 -y3) - (x2 - x3) * (y1 - y3)) / 2.0; // Находим площадь треугольника по формуле
+    }
+
+    // endregion
+
+    // region THIRD TASK EXPRESSION
+
+
 
     // endregion
 }

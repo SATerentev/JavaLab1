@@ -83,4 +83,25 @@ public class FirstPartTests {
         assertTrue(Math.abs(FirstPart.fourthExpression(-0.6) - Math.asin(0.4)) < 1e-9); // -0.6 + 1 = 0.4
     }
     // endregion
+
+    // region SECOND TASK TESTS
+
+    @Test
+    void testsSecondTask(){
+        assertTrue(FirstPart.secondTaskExpression(3, 0)); // внутри треугольника и окружности
+        assertTrue(FirstPart.secondTaskExpression(2, -4)); // внутри окружности, но вне треугольника
+        assertTrue(FirstPart.secondTaskExpression(1, 4)); // внутри треугольника, но вне окружности
+        assertFalse(FirstPart.secondTaskExpression(10, 1)); // вне треугольника и окружности
+        assertTrue(FirstPart.secondTaskExpression(5, 5)); // на границе окружности, вне треугольника
+        assertTrue(FirstPart.secondTaskExpression(10, 0)); // на границе треугольника и окружности
+
+        assertTrue(FirstPart.secondTaskExpression(3.5, 1.5)); // внутри треугольника и окружности
+        assertTrue(FirstPart.secondTaskExpression(9.9, -0.1)); // на границе треугольника и внутри кольца
+        assertTrue(FirstPart.secondTaskExpression(0.1, 4.9)); // внутри треугольника, но вне кольца
+        assertTrue(FirstPart.secondTaskExpression(5.0, -5.0)); // на границе окружности, но вне треугольника
+        assertFalse(FirstPart.secondTaskExpression(10.0000001, 0.0)); // на самом крайнем положении треугольника, чуть дальше него
+        assertFalse(FirstPart.secondTaskExpression(5.0000001, 5.0000001)); // на самом крайнем положении окружности, чуть дальше нее
+    }
+
+    // endregion
 }

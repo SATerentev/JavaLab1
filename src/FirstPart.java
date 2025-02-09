@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.*;
 
 public class FirstPart {
@@ -104,7 +105,34 @@ public class FirstPart {
 
     // region THIRD TASK EXPRESSION
 
+    public static float thirdTask(float a, float b){
+        float firstExpression = (a - b) * (a - b) * (a - b) - (a * a * a + 3 * a * b * b);
+        float secondExpression = -3 * a * a * b - b * b * b;
+        return firstExpression / secondExpression;
+    }
 
+    public static double thirdTask(double a, double b){
+        double firstExpression = (a - b) * (a - b) * (a - b) - (a * a * a + 3 * a * b * b);
+        double secondExpression = -3 * a * a * b - b * b * b;
+        return firstExpression / secondExpression;
+    }
+
+    public static BigDecimal thirdTaskBigDecimal(BigDecimal a, BigDecimal b){
+        // Оставлю за собой право сократить условие задачи
+        // ФСУ - куб разности - (a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3
+        // Дополнительно вычитаем a^3 и 3ab^2, остается -3a^2b - b^3
+        // С BigDecimal все придется делать поочередно.
+        // 1 - a^2 | 2 - a^2 * b | 3 - -3 * a^2b | 4 - b * b | 5 - b^2 * b | 6 - -3a^2b - b^3
+        BigDecimal firstExpression = BigDecimal.ZERO; // создаем переменную firstExpression = 0
+        firstExpression.add(a.multiply(a)); // добавляем к firstExpression а в квадрате
+        firstExpression.multiply(b); // умножаем firstExpression на b
+        firstExpression.multiply(new BigDecimal("-3")); // умножаем firstExpression на -3
+        BigDecimal bCube = b; // помещаем в новую переменную bCube параметр b
+        bCube.multiply(b); // умножаем b на b
+        bCube.multiply(b); // умножаем b^2 на b | Получили b в кубе
+        firstExpression.subtract(bCube); // Вычитаем из firstExpression b в кубе
+        // TODO: нашли firstExpression, найти второе и вернуть результат деления, закончить метод
+    }
 
     // endregion
 }

@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class FirstPart {
@@ -118,20 +119,27 @@ public class FirstPart {
     }
 
     public static BigDecimal thirdTaskBigDecimal(BigDecimal a, BigDecimal b){
-        // Оставлю за собой право сократить условие задачи
-        // ФСУ - куб разности - (a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3
-        // Дополнительно вычитаем a^3 и 3ab^2, остается -3a^2b - b^3
-        // С BigDecimal все придется делать поочередно.
-        // 1 - a^2 | 2 - a^2 * b | 3 - -3 * a^2b | 4 - b * b | 5 - b^2 * b | 6 - -3a^2b - b^3
-        BigDecimal firstExpression = BigDecimal.ZERO; // создаем переменную firstExpression = 0
-        firstExpression.add(a.multiply(a)); // добавляем к firstExpression а в квадрате
-        firstExpression.multiply(b); // умножаем firstExpression на b
-        firstExpression.multiply(new BigDecimal("-3")); // умножаем firstExpression на -3
-        BigDecimal bCube = b; // помещаем в новую переменную bCube параметр b
-        bCube.multiply(b); // умножаем b на b
-        bCube.multiply(b); // умножаем b^2 на b | Получили b в кубе
-        firstExpression.subtract(bCube); // Вычитаем из firstExpression b в кубе
-        // TODO: нашли firstExpression, найти второе и вернуть результат деления, закончить метод
+        BigDecimal expression; // Создаем пустую переменную expression типа BigDecimal
+        BigDecimal buffer; // Создаем еще одну пустую переменную для временных выражений
+
+        expression = a.subtract(b); // Добавляем в выражение (a - b)
+        expression = expression.pow(3); // Возводим выражение в третью степень, получаем (a - b)^3
+        buffer = a.pow(3); // Добавляем к буферу a в кубе
+        buffer = buffer.add(a.multiply(b.multiply(b.multiply(BigDecimal.valueOf(3))))); // Добавляем к буферу a * b * b и тройку
+        expression = expression.subtract(buffer); // Вычитаем, получаем первое большое выражение (a-b)*(a-b)*(a-b)-(a*a*a+3*a*b*b)
+        buffer = a.multiply(a.multiply(b.multiply(BigDecimal.valueOf(-3)))); // Заменяем значение буфера на -3 * a * a * b
+        buffer = buffer.subtract(b.pow(3)); // Вычитаем из буфера b * b * b
+        expression = expression.divide(buffer, 20, RoundingMode.HALF_UP); // Выполняем последние действие и получаем результат
+        /*
+         20 и HALF_UP в последнем методе необходимы для безопасного деления. В случае если число выйдет иррациональным,
+         то эти параметры помогут с округлением, чтобы программа не выкинула исключения.
+         20 - количество знаков после запятой, вычислив которые программа начнет округление
+         HALF_UP - метод округления, который соответствует обычному математическому округлению
+        */
+
+        // Понимаю, что этот код прям тяжело и неприятно читать, но мне просто лень каждое действие выносить на новую строчку, это был бы уже перебор
+
+        return expression;
     }
 
     // endregion

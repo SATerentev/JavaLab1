@@ -56,12 +56,13 @@ public class FirstPartTests {
         assertFalse(FirstPart.secondExpression(-5, -3)); // -5 > -4 False
         assertFalse(FirstPart.secondExpression(-7, -4)); // -7 > -5 False
         assertTrue(FirstPart.secondExpression(0, 0)); // 0 > -1 True
+        assertFalse(FirstPart.secondExpression(0, 1)); // 0 > 0 False Этот тест показывает, что m++ сработает после проверки m > n
     }
 
     @Test
     void testsThirdExpression(){
         assertFalse(FirstPart.thirdExpression(5, 3));  // 5 < 4 False
-        assertTrue(FirstPart.thirdExpression(2, 4)); // 2 < 4 True
+        assertTrue(FirstPart.thirdExpression(2, 4)); // 2 < 5 True
         assertTrue(FirstPart.thirdExpression(7, 7)); // 7 < 8 True
         assertFalse(FirstPart.thirdExpression(Integer.MAX_VALUE, Integer.MAX_VALUE)); // MAX_VALUE < (MAX_VALUE + 1) По математике True, для джавы будет False
         assertTrue(FirstPart.thirdExpression(Integer.MIN_VALUE, Integer.MIN_VALUE)); // MIN_VALUE < (MIN_VALUE + 1) True
@@ -69,6 +70,7 @@ public class FirstPartTests {
         assertTrue(FirstPart.thirdExpression(-5, -3)); // -5 < -2 True
         assertTrue(FirstPart.thirdExpression(-7, -4)); // -7 < -3 True
         assertTrue(FirstPart.thirdExpression(0, 0)); // 0 < 1 True
+        assertFalse(FirstPart.thirdExpression(1, 0)); // 1 < 1 False Этот тест показывает, что m-- срабатывает после проверки m < n
     }
 
     @Test

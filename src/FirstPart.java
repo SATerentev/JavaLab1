@@ -75,7 +75,7 @@ public class FirstPart {
     // константа погрешности вычислений
     private static final double EPSILON = 1e-8;
 
-    public static boolean secondTaskExpression(double a, double b){
+    public static boolean secondTask(double a, double b){
         return (isPointInCircleArea(a, b) || isPointInTriangleArea(a, b));
     }
 

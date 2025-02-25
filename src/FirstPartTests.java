@@ -93,19 +93,19 @@ public class FirstPartTests {
 
     @Test
     void testsSecondTask(){
-        assertTrue(FirstPart.secondTaskExpression(3, 0)); // внутри треугольника и окружности
-        assertTrue(FirstPart.secondTaskExpression(2, -4)); // внутри окружности, но вне треугольника
-        assertTrue(FirstPart.secondTaskExpression(1, 4)); // внутри треугольника, но вне окружности
-        assertFalse(FirstPart.secondTaskExpression(10, 1)); // вне треугольника и окружности
-        assertTrue(FirstPart.secondTaskExpression(5, 5)); // на границе окружности, вне треугольника
-        assertTrue(FirstPart.secondTaskExpression(10, 0)); // на границе треугольника и окружности
+        assertTrue(FirstPart.secondTask(3, 0)); // внутри треугольника и окружности
+        assertTrue(FirstPart.secondTask(2, -4)); // внутри окружности, но вне треугольника
+        assertTrue(FirstPart.secondTask(1, 4)); // внутри треугольника, но вне окружности
+        assertFalse(FirstPart.secondTask(10, 1)); // вне треугольника и окружности
+        assertTrue(FirstPart.secondTask(5, 5)); // на границе окружности, вне треугольника
+        assertTrue(FirstPart.secondTask(10, 0)); // на границе треугольника и окружности
 
-        assertTrue(FirstPart.secondTaskExpression(3.5, 1.5)); // внутри треугольника и окружности
-        assertTrue(FirstPart.secondTaskExpression(9.9, -0.1)); // на границе треугольника и внутри кольца
-        assertTrue(FirstPart.secondTaskExpression(0.1, 4.9)); // внутри треугольника, но вне кольца
-        assertTrue(FirstPart.secondTaskExpression(5.0, -5.0)); // на границе окружности, но вне треугольника
-        assertFalse(FirstPart.secondTaskExpression(10.0000001, 0.0)); // на самом крайнем положении треугольника, чуть дальше него
-        assertFalse(FirstPart.secondTaskExpression(5.0000001, 5.0000001)); // на самом крайнем положении окружности, чуть дальше нее
+        assertTrue(FirstPart.secondTask(3.5, 1.5)); // внутри треугольника и окружности
+        assertTrue(FirstPart.secondTask(9.9, -0.1)); // на границе треугольника и внутри кольца
+        assertTrue(FirstPart.secondTask(0.1, 4.9)); // внутри треугольника, но вне кольца
+        assertTrue(FirstPart.secondTask(5.0, -5.0)); // на границе окружности, но вне треугольника
+        assertFalse(FirstPart.secondTask(10.0000001, 0.0)); // на самом крайнем положении треугольника, чуть дальше него
+        assertFalse(FirstPart.secondTask(5.0000001, 5.0000001)); // на самом крайнем положении окружности, чуть дальше нее
     }
 
     // endregion
@@ -114,8 +114,10 @@ public class FirstPartTests {
 
     @Test
     void testsThirdTaskBigDecimal() {
+        // Все тесты будут использовать метод compareTo у BigDecimal. Этот метод сравнивает BigDecimal у которого был вызван с BigDecimal переданным в параметрах
+        // Если они равны, то этот метод возвращает 0, что мы и проверяем дальше: compareTo(BigDecimal.ONE) == 0
         // assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.ZERO, BigDecimal.ZERO).compareTo(BigDecimal.ONE) == 0); Здесь будет ошибка из-за деления на 0
-        assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.ONE, BigDecimal.TEN).compareTo(BigDecimal.ONE) == 0);
+        assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.0001)).compareTo(BigDecimal.ONE) == 0);
         assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.valueOf(5), BigDecimal.valueOf(-2)).compareTo(BigDecimal.ONE) == 0);
         assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.valueOf(-3), BigDecimal.valueOf(13)).compareTo(BigDecimal.ONE) == 0);
         assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.valueOf(1_000_000_000), BigDecimal.valueOf(-0.004_000_000)).compareTo(BigDecimal.ONE) == 0);
@@ -127,7 +129,7 @@ public class FirstPartTests {
     @Test
     void testsThirdTaskFloat() {
         // assertEquals(1.0f, FirstPart.thirdTask(Float.MAX_VALUE, Float.MIN_VALUE)); Из-за переполнения, первое же умножение возвращает Infinity, т.е. NaN
-        assertEquals(1.0f, FirstPart.thirdTask(1.0000001f, 1.0000000f));
+        // assertEquals(1.0f, FirstPart.thirdTask(1000f, 0.0001f)); Из-за ошибок округления, здесь получаем 1.28, должны были 1.0
         // assertEquals(1.0f, FirstPart.thirdTask(3.14f, 2.71f)); В этом тесте происходит ошибка из-за округления, особенность IEEE-754 e:1.0 a:1.0000001
         assertEquals(1.0f, FirstPart.thirdTask(-7.25f, 7.25f));
         assertEquals(1.0f, FirstPart.thirdTask(100.5f, 100.5f));
@@ -137,7 +139,7 @@ public class FirstPartTests {
     @Test
     void testsThirdTaskDouble() {
         // assertEquals(1.0, FirstPart.thirdTask(Double.MAX_VALUE, Double.MIN_VALUE)); Здесь такая же ситуация, что и с float
-        assertEquals(1.0, FirstPart.thirdTask(0.00000000000001, -0.00000000000001));
+        // assertEquals(1.0, FirstPart.thirdTask(1000, 0.0001)); Ошибка из-за округления, получаем 0.9999999999999966, должны были 1.0
         assertEquals(1.0, FirstPart.thirdTask(2.718281828, 3.141592653));
         assertEquals(1.0, FirstPart.thirdTask(-50.123, -50.123));
         // assertEquals(1.0, FirstPart.thirdTask(-9999.9999, 0.000000001)); Ошибка из-за округления, e:1.0 a:0.9997558793701172

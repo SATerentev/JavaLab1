@@ -1,3 +1,5 @@
+package lab1;
+
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -42,9 +44,9 @@ public class FirstPartTests {
     void failTestsFirstExpressionDouble(){
         // Это будут специальные тесты, которые должны выдавать ошибку
         // Эти тесты покажут, что даже при правильных подсчетах, в работе с вещественными числами IEEE 754 могут быть ошибки при округлениях
-        assertEquals(1.4, FirstPart.firstExpression(5.5, 3.1)); // expected: 1.4 | actual: 1.4000000000000004
-        assertEquals(1.3, FirstPart.firstExpression(5.5, 3.2)); // expected: 1.3 | actual: 1.2999999999999998
-        assertEquals(0.0, FirstPart.firstExpression(Double.MAX_VALUE, Double.MAX_VALUE)); // expected: -1.0 | actual 0.0
+        assertEquals(1.4, lab1.FirstPart.firstExpression(5.5, 3.1)); // expected: 1.4 | actual: 1.4000000000000004
+        assertEquals(1.3, lab1.FirstPart.firstExpression(5.5, 3.2)); // expected: 1.3 | actual: 1.2999999999999998
+        assertEquals(0.0, lab1.FirstPart.firstExpression(Double.MAX_VALUE, Double.MAX_VALUE)); // expected: -1.0 | actual 0.0
     }
     */
 
@@ -116,7 +118,7 @@ public class FirstPartTests {
     void testsThirdTaskBigDecimal() {
         // Все тесты будут использовать метод compareTo у BigDecimal. Этот метод сравнивает BigDecimal у которого был вызван с BigDecimal переданным в параметрах
         // Если они равны, то этот метод возвращает 0, что мы и проверяем дальше: compareTo(BigDecimal.ONE) == 0
-        // assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.ZERO, BigDecimal.ZERO).compareTo(BigDecimal.ONE) == 0); Здесь будет ошибка из-за деления на 0
+        // assertTrue(lab1.FirstPart.thirdTaskBigDecimal(BigDecimal.ZERO, BigDecimal.ZERO).compareTo(BigDecimal.ONE) == 0); Здесь будет ошибка из-за деления на 0
         assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.0001)).compareTo(BigDecimal.ONE) == 0);
         assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.valueOf(5), BigDecimal.valueOf(-2)).compareTo(BigDecimal.ONE) == 0);
         assertTrue(FirstPart.thirdTaskBigDecimal(BigDecimal.valueOf(-3), BigDecimal.valueOf(13)).compareTo(BigDecimal.ONE) == 0);
@@ -128,9 +130,9 @@ public class FirstPartTests {
 
     @Test
     void testsThirdTaskFloat() {
-        // assertEquals(1.0f, FirstPart.thirdTask(Float.MAX_VALUE, Float.MIN_VALUE)); Из-за переполнения, первое же умножение возвращает Infinity, т.е. NaN
-        // assertEquals(1.0f, FirstPart.thirdTask(1000f, 0.0001f)); Из-за ошибок округления, здесь получаем 1.28, должны были 1.0
-        // assertEquals(1.0f, FirstPart.thirdTask(3.14f, 2.71f)); В этом тесте происходит ошибка из-за округления, особенность IEEE-754 e:1.0 a:1.0000001
+        // assertEquals(1.0f, lab1.FirstPart.thirdTask(Float.MAX_VALUE, Float.MIN_VALUE)); Из-за переполнения, первое же умножение возвращает Infinity, т.е. NaN
+        // assertEquals(1.0f, lab1.FirstPart.thirdTask(1000f, 0.0001f)); Из-за ошибок округления, здесь получаем 1.28, должны были 1.0
+        // assertEquals(1.0f, lab1.FirstPart.thirdTask(3.14f, 2.71f)); В этом тесте происходит ошибка из-за округления, особенность IEEE-754 e:1.0 a:1.0000001
         assertEquals(1.0f, FirstPart.thirdTask(-7.25f, 7.25f));
         assertEquals(1.0f, FirstPart.thirdTask(100.5f, 100.5f));
         assertEquals(1.0f, FirstPart.thirdTask(0.00001f, 100000f));
@@ -138,11 +140,11 @@ public class FirstPartTests {
 
     @Test
     void testsThirdTaskDouble() {
-        // assertEquals(1.0, FirstPart.thirdTask(Double.MAX_VALUE, Double.MIN_VALUE)); Здесь такая же ситуация, что и с float
-        // assertEquals(1.0, FirstPart.thirdTask(1000, 0.0001)); Ошибка из-за округления, получаем 0.9999999999999966, должны были 1.0
+        // assertEquals(1.0, lab1.FirstPart.thirdTask(Double.MAX_VALUE, Double.MIN_VALUE)); Здесь такая же ситуация, что и с float
+        // assertEquals(1.0, lab1.FirstPart.thirdTask(1000, 0.0001)); Ошибка из-за округления, получаем 0.9999999999999966, должны были 1.0
         assertEquals(1.0, FirstPart.thirdTask(2.718281828, 3.141592653));
         assertEquals(1.0, FirstPart.thirdTask(-50.123, -50.123));
-        // assertEquals(1.0, FirstPart.thirdTask(-9999.9999, 0.000000001)); Ошибка из-за округления, e:1.0 a:0.9997558793701172
+        // assertEquals(1.0, lab1.FirstPart.thirdTask(-9999.9999, 0.000000001)); Ошибка из-за округления, e:1.0 a:0.9997558793701172
         assertEquals(1.0, FirstPart.thirdTask(0.333333333333, 0.333333333333));
     }
 

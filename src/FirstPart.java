@@ -1,5 +1,3 @@
-package lab1;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
